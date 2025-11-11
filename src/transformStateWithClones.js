@@ -17,23 +17,28 @@ function transformStateWithClones(state, actions) {
 
   for (const action of actions) {
     switch (action.type) {
-      case ADD_ACTION:
+      case ADD_ACTION: {
         Object.assign(prevClone, action.extraData);
         break;
+      }
 
-      case REMOVE_ACTION:
+      case REMOVE_ACTION: {
         for (const key of action.keysToRemove) {
           delete prevClone[key];
         }
         break;
+      }
 
-      case CLEAR_ACTION:
+      case CLEAR_ACTION: {
         for (const key in prevClone) {
           delete prevClone[key];
         }
         break;
-      default:
+      }
+
+      default: {
         throw new Error(`Unknown action type: ${action.type}`);
+      }
     }
     stateClones.push({ ...prevClone });
   }
